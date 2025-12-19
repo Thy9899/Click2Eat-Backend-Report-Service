@@ -16,6 +16,10 @@ const dailySalesReport = async (req, res) => {
     if (!req.user?.is_admin)
       return res.status(403).json({ error: "Access denied" });
 
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
     const report = await Order.aggregate([
       // Only completed orders
       {
@@ -97,6 +101,10 @@ const monthlySalesReport = async (req, res) => {
     if (!req.user?.is_admin)
       return res.status(403).json({ error: "Access denied" });
 
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
     const report = await Order.aggregate([
       // Completed orders only
       {
@@ -139,6 +147,10 @@ const orderStatusReport = async (req, res) => {
   try {
     if (!req.user?.is_admin) {
       return res.status(403).json({ error: "Access denied" });
+    }
+
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Forbidden" });
     }
 
     const report = await Order.aggregate([
@@ -254,6 +266,10 @@ const userOrderReport = async (req, res) => {
       return res.status(403).json({ error: "Access denied" });
     }
 
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
     const report = await Order.aggregate([
       // Completed + confirmed orders
       {
@@ -331,6 +347,10 @@ const userProductReport = async (req, res) => {
   try {
     if (!req.user?.is_admin) {
       return res.status(403).json({ error: "Access denied" });
+    }
+
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Forbidden" });
     }
 
     const report = await Order.aggregate([

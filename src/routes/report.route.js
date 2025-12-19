@@ -1,6 +1,7 @@
 const express = require("express");
 const reportController = require("../controller/report.controller");
 const authenticateTokenAdmin = require("../middleware/authMiddlewareAdmin");
+const adminOnly = require("../middleware/adminMiddleware");
 
 const router = express.Router();
 
@@ -17,6 +18,7 @@ const router = express.Router();
 router.get(
   "/daily-sales",
   authenticateTokenAdmin,
+  adminOnly,
   reportController.dailySalesReport
 );
 
@@ -42,6 +44,7 @@ router.get(
 router.get(
   "/monthly-sales",
   authenticateTokenAdmin,
+  adminOnly,
   reportController.monthlySalesReport
 );
 
@@ -66,6 +69,7 @@ router.get(
 router.get(
   "/order-status",
   authenticateTokenAdmin,
+  adminOnly,
   reportController.orderStatusReport
 );
 
@@ -89,6 +93,7 @@ router.get(
 router.get(
   "/customer",
   authenticateTokenAdmin,
+  adminOnly,
   reportController.userOrderReport
 );
 
@@ -113,6 +118,7 @@ router.get(
 router.get(
   "/product",
   authenticateTokenAdmin,
+  adminOnly,
   reportController.userProductReport
 );
 
